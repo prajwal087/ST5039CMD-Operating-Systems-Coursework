@@ -1,0 +1,20 @@
+{"t":1784441026.949,"ev":"sandbox_start","pid":0,"limits":""}
+{"t":1784441026.949,"ev":"sandbox_start","pid":0,"limits":"wall=5s cpu=80% rss=256000kB grace=500ms"}
+{"t":1784441026.954,"ev":"child_spawned","pid":39370,"pid":39370}
+{"t":1784441027.229,"ev":"cpu_sample","pid":39370,"pct":0}
+{"t":1784441027.276,"ev":"mem_sample","pid":39370,"rss_kb":0}
+{"t":1784441027.276,"ev":"mem_sample","pid":39370,"threads":1}
+{"t":1784441027.276,"ev":"mem_sample","pid":39370,"ctx_v":98}
+{"t":1784441027.276,"ev":"mem_sample","pid":39370,"ctx_nv":3}
+{"t":1784441027.485,"ev":"cpu_sample","pid":39370,"pct":0}
+{"t":1784441027.579,"ev":"mem_sample","pid":39370,"rss_kb":0}
+{"t":1784441027.579,"ev":"mem_sample","pid":39370,"threads":1}
+{"t":1784441027.579,"ev":"mem_sample","pid":39370,"ctx_v":98}
+{"t":1784441027.579,"ev":"mem_sample","pid":39370,"ctx_nv":3}
+{"t":1784441027.743,"ev":"cpu_sample","pid":39370,"pct":0}
+{"t":1784441027.881,"ev":"mem_sample","pid":39370,"rss_kb":0}
+{"t":1784441027.881,"ev":"mem_sample","pid":39370,"threads":1}
+{"t":1784441027.881,"ev":"mem_sample","pid":39370,"ctx_v":98}
+{"t":1784441027.881,"ev":"mem_sample","pid":39370,"ctx_nv":3}
+{"t":1784441027.961,"ev":"child_exit","pid":39370,"code":0}
+{"t":1784441027.963,"ev":"final_status","pid":39370,"waitpid":1796343651}
