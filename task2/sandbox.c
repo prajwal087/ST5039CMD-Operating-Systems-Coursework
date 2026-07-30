@@ -139,8 +139,7 @@ static void *monitor_wallclock(void *arg) {
             snprintf(buf, sizeof(buf), "%.2f", elapsed);
             json_log(cfg->log_fd, "wallclock_exceeded", cfg->child,
                      "elapsed_s", buf);
-            atomic_store(&cfg->term_reason,
-                         atomic_load(&cfg->term_reason) | TR_WALL_CLOCK);
+            atomic_fetch_or(&cfg->term_reason, TR_WALL_CLOCK);
             break;
         }
         usleep(50000);
@@ -165,8 +164,7 @@ static void *monitor_cpu(void *arg) {
 
         if (parse_proc_stat(cfg->child, &curr) < 0) {
             if (errno == ENOENT) {
-                atomic_store(&cfg->term_reason,
-                             atomic_load(&cfg->term_reason) | TR_SELF_EXIT);
+                atomic_fetch_or(&cfg->term_reason, TR_SELF_EXIT);
             }
             break;
         }
@@ -184,8 +182,7 @@ static void *monitor_cpu(void *arg) {
         if (pct > cfg->cpu_pct) {
             json_log_int(cfg->log_fd, "cpu_exceeded", cfg->child,
                          "cpu_pct", pct);
-            atomic_store(&cfg->term_reason,
-                         atomic_load(&cfg->term_reason) | TR_CPU_LIMIT);
+            atomic_fetch_or(&cfg->term_reason, TR_CPU_LIMIT);
             break;
         }
 
@@ -221,8 +218,7 @@ static void *monitor_memory(void *arg) {
         if (rss_kb > cfg->rss_kb) {
             json_log_int(cfg->log_fd, "rss_exceeded", cfg->child,
                          "rss_kb", (long)rss_kb);
-            atomic_store(&cfg->term_reason,
-                         atomic_load(&cfg->term_reason) | TR_RSS_LIMIT);
+            atomic_fetch_or(&cfg->term_reason, TR_RSS_LIMIT);
             break;
         }
     }
@@ -364,13 +360,11 @@ int main(int argc, char **argv) {
                     else if (WIFSIGNALED(wstatus))
                         json_log_int(cfg.log_fd, "child_killed", cfg.child,
                                      "sig", WTERMSIG(wstatus));
-                    atomic_store(&cfg.term_reason,
-                                 atomic_load(&cfg.term_reason) | TR_SELF_EXIT);
+                    atomic_fetch_or(&cfg.term_reason, TR_SELF_EXIT);
                     break;
                 }
                 if (si.ssi_signo == SIGINT || si.ssi_signo == SIGTERM) {
-                    atomic_store(&cfg.term_reason,
-                                 atomic_load(&cfg.term_reason) | TR_USER_REQ);
+                    atomic_fetch_or(&cfg.term_reason, TR_USER_REQ);
                     break;
                 }
             }
